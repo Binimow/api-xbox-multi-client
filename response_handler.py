@@ -3,15 +3,19 @@ import json
 import os
 from xbox.webapi.api.provider.profile.models import ProfileUser
 
-async def createResponseHandler(filename_name_id: str):
-    responseHandler = ResponseHandler(filename_name_id)
+from clients_manager import ClientsManager
+from models import ManagerMessage
+
+async def createResponseHandler(filename_name_id: str, clients_manager: ClientsManager):
+    responseHandler = ResponseHandler(filename_name_id, clients_manager)
     await responseHandler.load()
     return responseHandler
 
 class ResponseHandler():
     '''Handle the responses given to the client. Make the client available for the ClientManager.'''
-    def __init__(self, filename_name_id: str):
+    def __init__(self, filename_name_id: str, clients_manager: ClientsManager):
         self.filename_name_id = filename_name_id
+        self.clients_manager = clients_manager
         self.name_id: list[Dict[str, str]] = []
 
     async def load(self):
@@ -28,10 +32,11 @@ class ResponseHandler():
         else:
             print('WARNING: The file for the name-id file provided in the ResponseHandler does not exist')
 
-    def receive_gamertag(self, gamertag: str, response: ProfileUser):
+    async def receive_gamertag(self, gamertag: str, response: ProfileUser, clientid: str):
         '''Receive the id associated with a gamertag from the client'''
         self.name_id.append({
             'uid': response.id,
             'gamertag': gamertag
         })
         print('received gamertag')
+        await self.clients_manager.notify_manager(clientid, ManagerMessage.WAITING)

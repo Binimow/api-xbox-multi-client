@@ -1,7 +1,7 @@
 from string import ascii_uppercase
 import sys
 
-class GamertagManager:
+class GamertagGenerator:
     def __init__(self, deep: int=1) -> None:
         self.deep = deep
         self.names = []
@@ -16,9 +16,9 @@ class GamertagManager:
                     for letter4 in ascii_uppercase:
                         self.names.append(letter1 + letter2 + letter3 + letter4)
 
-gamertag_manager = GamertagManager()
-gamertag_manager.alphabet_loop()
-gamertag_manager.names.sort()
+gamertag_generator = GamertagGenerator()
+gamertag_generator.alphabet_loop()
+gamertag_generator.names.sort()
 with open('name-list.txt', 'w') as outfile:
-    outfile.write(','.join(gamertag_manager.names))
+    outfile.write(','.join(gamertag_generator.names))
 

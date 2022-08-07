@@ -1,12 +1,15 @@
 from __future__ import annotations
 import asyncio
+import time
 from typing import TYPE_CHECKING, Dict
+import threading
 from gamertag_distributor import GamertagDistributor
 if TYPE_CHECKING:
     from client import XboxLiveClientCustom
 from models import ClientMessage, ManagerMessage
 
 class ClientsManager:
+    '''Used to make the bridge between the client and the business logic'''
     def __init__(self, gt_distributor: GamertagDistributor):
         self.clients: Dict[str, XboxLiveClientCustom] = {}
         self.gt_distributor = gt_distributor
@@ -33,4 +36,4 @@ class ClientsManager:
     async def broadcast_client(self, message: ClientMessage, args=None):
         '''Send a message to all clients'''
         for client in self.clients.values():
-            await client.notify_client(message)
+             await client.notify_client(message)

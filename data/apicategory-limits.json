@@ -1,0 +1,62 @@
+{
+    "stats": {
+        "burst" : 100,
+        "sustain_user": 300
+    },
+    "profile": {
+        "burst" : 10,
+        "sustain_user": 30
+    },
+    "mpsd": {
+        "burst" : 30,
+        "sustain_user": 300
+    },
+    "search_handle": {
+        "burst" : 1,
+        "sustain_user": 20
+    },
+    "presence": {
+        "burst" : 30,
+        "sustain_user": 100
+    },
+    "social": {
+        "burst" : 10,
+        "sustain_user": 30
+    },
+    "leaderboards": {
+        "burst" : 30,
+        "sustain_user": 100
+    },
+    "achievements": {
+        "burst" : 100,
+        "sustain_user": 300
+    },
+    "smart_match": {
+        "burst" : 10,
+        "sustain_user": 100
+    },
+    "user_posts": {
+        "burst" : 100,
+        "sustain_user": 300
+    },
+    "stats_write": {
+        "burst" : 10,
+        "sustain_user": 10
+    },
+    "privacy": {
+        "burst" : 10,
+        "sustain_user": 30
+    },
+    "clubs": {
+        "burst" : 10,
+        "sustain_user": 30
+    },
+    "collections": {
+        "burst" : 100,
+        "sustain_user": 100
+    },
+    "inventory": {
+        "burst" : 100,
+        "sustain_user": 100
+    }
+}
