@@ -25,12 +25,15 @@ class ResponseHandler():
         else:
             print('WARNING: The file for the name-id file provided in the ResponseHandler does not exist')
     
-    async def save(self):
+    def save(self):
+        print("saved response handler")
         if os.path.exists(self.filename_name_id):
             with open(self.filename_name_id, 'w') as out_file:
+                print(self.name_id)
                 out_file.write(json.dumps(self.name_id))
         else:
             print('WARNING: The file for the name-id file provided in the ResponseHandler does not exist')
+        print("succesfully saved")
 
     async def receive_gamertag(self, gamertag: str, response: ProfileUser, clientid: str):
         '''Receive the id associated with a gamertag from the client'''

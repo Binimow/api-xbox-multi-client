@@ -45,6 +45,6 @@ class GamertagDistributor():
                 file_content.split(',')
             ))
 
-    async def save(self):
+    def save(self):
         with open(self.filename_self, 'wb') as out_file:
             pickle.dump(self.__dict__, out_file)

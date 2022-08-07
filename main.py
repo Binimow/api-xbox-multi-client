@@ -15,6 +15,7 @@ from clients_manager import ClientsManager
 from gamertag_distributor import GamertagDistributor, createGamertagDistributor
 from models import ClientMessage, ManagerMessage
 from response_handler import ResponseHandler, createResponseHandler
+import atexit
 
 collections.Iterable = collections.abc.Iterable
 collections.Mapping = collections.abc.Mapping
@@ -29,7 +30,11 @@ client_secret = '2dr8Q~Nq39txP.WYyOIWW8bgZ5JUBmAE5kkbqcwF'
 For doing authentication, see xbox/webapi/scripts/authenticate.py
 """
 
+gt_distributor = "placeholder"
+response_handler = "placeholder"
 async def async_main():
+    global gt_distributor
+    global response_handler
     # replace with path in auth scrip or just paste file with tokens here
     tokens_file = "./data/tokens.json"
     async with ClientSession() as session:
@@ -60,9 +65,12 @@ async def async_main():
         xbl_client1 = XboxLiveClientCustom(auth_mgr, response_handler)
         clients_manager.add_client(xbl_client1)
         await clients_manager.broadcast_client(ClientMessage.START)
-        await gt_distributor.save()
-        await response_handler.save()
         await asyncio.gather(*[client.check_availability() for client in clients_manager.clients.values()]) #will never stop
 
+@atexit.register
+def shutdown():
+    gt_distributor.save()
+    response_handler.save()
+    print("Saved and exited properly")
 
 asyncio.get_event_loop_policy().get_event_loop().run_until_complete(async_main())
